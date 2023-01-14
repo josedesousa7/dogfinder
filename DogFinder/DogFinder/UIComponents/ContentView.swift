@@ -8,6 +8,12 @@
 import SwiftUI
 
 struct ContentView: View {
+
+    @ObservedObject var viewModel: DogListViewModel
+
+    init(viewModel: DogListViewModel = DogListViewModel()) {
+        self.viewModel = viewModel
+    }
     var body: some View {
         TabView {
             VStack {
