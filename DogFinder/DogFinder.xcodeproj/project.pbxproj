@@ -95,7 +95,9 @@
 			isa = PBXGroup;
 			children = (
 				68E818DF2972B2CF0047E74F /* DogFinderApp.swift */,
-				68E818E12972B2CF0047E74F /* ContentView.swift */,
+				68E819092972ED8A0047E74F /* Network */,
+				68E8190B2972EDA30047E74F /* Repositories */,
+				68E8190C2972EDB50047E74F /* UIComponents */,
 				68E818E32972B2D00047E74F /* Assets.xcassets */,
 				68E818E52972B2D00047E74F /* Preview Content */,
 			);
@@ -125,6 +127,52 @@
 				68E818FC2972B2D00047E74F /* DogFinderUITestsLaunchTests.swift */,
 			);
 			path = DogFinderUITests;
+			sourceTree = "<group>";
+		};
+		68E819092972ED8A0047E74F /* Network */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Network;
+			sourceTree = "<group>";
+		};
+		68E8190B2972EDA30047E74F /* Repositories */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Repositories;
+			sourceTree = "<group>";
+		};
+		68E8190C2972EDB50047E74F /* UIComponents */ = {
+			isa = PBXGroup;
+			children = (
+				68E819102972EE570047E74F /* Details */,
+				68E8190F2972EE490047E74F /* Search */,
+				68E8190D2972EE0D0047E74F /* DogsList */,
+				68E818E12972B2CF0047E74F /* ContentView.swift */,
+			);
+			path = UIComponents;
+			sourceTree = "<group>";
+		};
+		68E8190D2972EE0D0047E74F /* DogsList */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = DogsList;
+			sourceTree = "<group>";
+		};
+		68E8190F2972EE490047E74F /* Search */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Search;
+			sourceTree = "<group>";
+		};
+		68E819102972EE570047E74F /* Details */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Details;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
