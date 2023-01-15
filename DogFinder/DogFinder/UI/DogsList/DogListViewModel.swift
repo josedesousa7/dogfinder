@@ -11,14 +11,14 @@ import Combine
 public typealias DogListViewModelOutput<T: Codable> = (_ output: T?, _ error: Error?) -> Void
 
 protocol DogListViewModelProtocol {
-    var state: State { get set }
+    var state: DogListState { get set }
     func requestDogList()
 }
 
 class DogListViewModel: ObservableObject {
     private var repository: DogListRepository
     private var cancellables = Set<AnyCancellable>()
-    @Published var state: State = .loading
+    @Published var state: DogListState = .loading
     @Published var availableDogs: [DogListModel] = []
 
     init(repository: DogListRepository = DogListRepository()) {
@@ -59,7 +59,7 @@ extension DogListViewModel: DogListViewModelProtocol {
     }
 }
 
-enum State {
+enum DogListState {
     case loading
     case error
     case ready

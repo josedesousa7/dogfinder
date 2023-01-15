@@ -11,7 +11,7 @@ struct ContentView: View {
     var body: some View {
         TabView {
             DogListView()
-                .padding()
+                .padding(16)
                 .tabItem {
                     Label("Menu", systemImage: "list.dash")
                 }
