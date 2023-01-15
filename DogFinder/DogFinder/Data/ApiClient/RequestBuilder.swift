@@ -15,7 +15,8 @@ enum RequestBuilder {
         components.path = "/v1/images/search"
         components.queryItems = [
             URLQueryItem(name: "has_breeds", value: "true"),
-            URLQueryItem(name: "limit", value: "10")
+            URLQueryItem(name: "limit", value: "10"),
+            URLQueryItem(name: "size", value: "thumb")
         ]
         return components.url!
     }
