@@ -32,7 +32,7 @@ struct DogListView: View {
     @ViewBuilder private func gridView(items: [DogListModel]) -> some View {
         List {
             LazyVGrid(columns: gridItems, spacing: 10) {
-                ForEach(items, id: \.name) { item in
+                ForEach(items, id: \.id) { item in
                     VStack(spacing: 12) {
                         gridDogPicture(url: item.imageUrl)
                         dogName(item.name)
@@ -46,11 +46,14 @@ struct DogListView: View {
 
     @ViewBuilder private func listView(items: [DogListModel]) -> some View {
         List {
-            ForEach(items, id: \.name) { item in
+            ForEach(items, id: \.id) { item in
                 HStack(spacing: 12) {
                     listdogPicture(url: item.imageUrl)
                     dogName(item.name)
                     Spacer()
+                }
+                .onAppear() {
+                    viewModel.loadMore(item: item)
                 }
             }
             .frame(height: 100)

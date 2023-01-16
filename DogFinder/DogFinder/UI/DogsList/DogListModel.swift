@@ -8,10 +8,15 @@
 import Foundation
 
 struct DogListModel: Hashable, Equatable {
+    let id: String
     let name: String
     let imageUrl: String
 
+    func hash(into hasher: inout Hasher) {
+        hasher.combine(name)
+    }
+
     static func == (lhs: DogListModel, rhs: DogListModel) -> Bool {
-     return lhs.name == rhs.name
+        return lhs.name == rhs.name && lhs.name == rhs.name
     }
 }

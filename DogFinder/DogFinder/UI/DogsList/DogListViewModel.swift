@@ -12,7 +12,7 @@ public typealias DogListViewModelOutput<T: Codable> = (_ output: T?, _ error: Er
 
 protocol DogListViewModelProtocol {
     var state: DogListState { get set }
-    func requestDogList()
+    func requestDogList(page: Int)
 }
 
 class DogListViewModel: ObservableObject {
@@ -20,17 +20,20 @@ class DogListViewModel: ObservableObject {
     private var cancellables = Set<AnyCancellable>()
     @Published var state: DogListState = .loading
     @Published var availableDogs: [DogListModel] = []
+    private var response: [DogListModel] = []
+    var totalPages = 10
+    var page = 0
 
     init(repository: DogListRepository = DogListRepository()) {
         self.repository = repository
-        requestDogList()
+        requestDogList(page: page)
     }
 }
 
 extension DogListViewModel: DogListViewModelProtocol {
 
-    func requestDogList() {
-        repository.dogList()
+    func requestDogList(page: Int) {
+        repository.dogList(page: page)
             .sink { [weak self] response in
                 guard let self = self else { return }
                 switch response {
@@ -43,19 +46,27 @@ extension DogListViewModel: DogListViewModelProtocol {
             } receiveValue: { [weak self] value in
                 guard let self = self else { return }
                 let dogs = value.compactMap { $0 }
-                let response = dogs.map { DogListModel(name: $0.breeds.compactMap { $0.name }.first ?? "",
-                                                       imageUrl: $0.url ?? "") }
-
-                self.availableDogs.append(contentsOf: self.setupListOfDogs(dogList: response))
+                let response = dogs.map { DogListModel(id: UUID().uuidString,
+                                                       name: $0.breeds.compactMap { $0.name }.first ?? "",
+                                                       imageUrl: $0.url ?? "")}
+                self.response.append(contentsOf: response)
+                let formateddArray = self.response.removeDuplicates()
+                self.availableDogs = formateddArray
                 self.state = .ready
-
-                //self.state.value = .ready(model)
             }
             .store(in: &cancellables)
     }
-    private func setupListOfDogs(dogList:[DogListModel]) -> [DogListModel] {
-        return dogList.removingDuplicates { $0.name }
 
+    func loadMore(item: DogListModel) {
+        let lastItemId = availableDogs.last?.id
+        if let lastItemId {
+            if item.id == lastItemId, (page + 1) <= totalPages {
+                page += 1
+                state = .loading
+                requestDogList(page: page)
+                print("page:\(page)")
+            }
+        }
     }
 }
 
@@ -72,16 +83,9 @@ enum DogListState {
     }
 }
 
-
-extension Array where Element: Hashable {
-    func removingDuplicates<T: Hashable>(byKey key: (Element) -> T)  -> [Element] {
-         var result = [Element]()
-         var seen = Set<T>()
-         for value in self {
-             if seen.insert(key(value)).inserted {
-                 result.append(value)
-             }
-         }
-         return result
-     }
+extension Sequence where Iterator.Element: Hashable {
+    func removeDuplicates() -> [Iterator.Element] {
+        var seen: Set<Iterator.Element> = []
+        return filter { seen.insert($0).inserted }
+    }
 }

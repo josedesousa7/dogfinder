@@ -9,7 +9,7 @@ import Foundation
 import Combine
 
 protocol DogFinderRequestsProtocol {
-    func fetchDogList<T: Decodable>() -> AnyPublisher<T, Error>
+    func fetchDogList<T: Decodable>(page: Int) -> AnyPublisher<T, Error>
 }
 
 struct DogFinderApiClient: DogFinderRequestsProtocol {
@@ -20,8 +20,8 @@ struct DogFinderApiClient: DogFinderRequestsProtocol {
         self.requestManager = requestManager
     }
 
-    func fetchDogList<T: Decodable>() -> AnyPublisher<T, Error> {
-        return requestManager.fetch(RequestBuilder.buildUrlRequest())
+    func fetchDogList<T: Decodable>(page: Int) -> AnyPublisher<T, Error> {
+        return requestManager.fetch(RequestBuilder.buildUrlRequest(page: page))
             .map(\.value)
             .eraseToAnyPublisher()
     }

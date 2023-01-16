@@ -16,7 +16,7 @@ struct DogListRepository {
         self.apiClient = apiClient
     }
 
-      func dogList() -> AnyPublisher<[Dog], Error> {
-          return apiClient.fetchDogList()
+    func dogList(page: Int) -> AnyPublisher<[Dog], Error> {
+        apiClient.fetchDogList(page: page)
     }
 }

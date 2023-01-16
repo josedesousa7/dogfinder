@@ -20,7 +20,11 @@ struct RequestManager: HttpProtocol {
             .dataTaskPublisher(for: request)
             .tryMap { result -> Response<T> in
                 let value = try JSONDecoder().decode(T.self, from: result.data)
-                return Response(value: value, response: result.response)
+                let headers = result.response as? HTTPURLResponse
+                let allHeaders = headers?.allHeaderFields
+                let pageCount = allHeaders?["pagination-count"]
+                return Response(value: value,
+                                response: result.response)
             }
             .receive(on: DispatchQueue.main)
             .eraseToAnyPublisher()
