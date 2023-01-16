@@ -14,17 +14,12 @@ struct ContentView: View {
                 .tabItem {
                     Label("Menu", systemImage: "list.dash")
                 }
-
-            VStack {
-                Text("Test")
-                Text("Hello, world!")
-            }
-            .padding()
-
+            DogSearchView()
             .tabItem {
                 Label("Order", systemImage: "square.and.pencil")
             }
         }
+        .padding(.horizontal, 5)
     }
 }
 

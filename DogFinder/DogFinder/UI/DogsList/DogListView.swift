@@ -10,15 +10,15 @@ import Combine
 
 struct DogListView: View {
 
-    @ObservedObject var viewModel: DogListViewModel
+    @EnvironmentObject var viewModel: DogListViewModel
     private var circle = Circle()
     private var rectangle = Rectangle()
     @State private var layoutFormat: LayoutFormat = .list
     var gridItems: [GridItem] = [GridItem(.flexible()), GridItem(.flexible())]
 
-    init(viewModel: DogListViewModel = DogListViewModel()) {
-        self.viewModel = viewModel
-    }
+//    init(viewModel: DogListViewModel = DogListViewModel()) {
+//        self.viewModel = viewModel
+//    }
 
     var body: some View {
         VStack(spacing: .zero) {
@@ -30,13 +30,16 @@ struct DogListView: View {
     }
 
     @ViewBuilder private func gridView(items: [DogListModel]) -> some View {
-        List {
+        ScrollView {
             LazyVGrid(columns: gridItems, spacing: 10) {
                 ForEach(items, id: \.id) { item in
                     VStack(spacing: 12) {
                         gridDogPicture(url: item.imageUrl)
                         dogName(item.name)
                         Spacer()
+                    }
+                    .onAppear() {
+                        viewModel.loadMore(item: item)
                     }
                 }
             }
@@ -84,7 +87,7 @@ struct DogListView: View {
             content: { image in
                 image.resizable()
                     .aspectRatio(contentMode: .fill)
-                    .frame(width: 80, height: 80)
+                    .frame(width: 150, height: 150)
                     .clipShape(Rectangle())
                     .overlay(rectangle
                         .stroke(.gray, lineWidth: 1)
@@ -95,11 +98,13 @@ struct DogListView: View {
                 Image(systemName: "photo")
             }
         )
+        .padding()
     }
 
     @ViewBuilder private func dogName(_ name: String) -> some View {
         Text(name)
             .font(.subheadline)
+            .padding(.horizontal, 8)
     }
 
     @ViewBuilder private func formatChooser() -> some View {

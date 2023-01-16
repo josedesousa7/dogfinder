@@ -20,6 +20,7 @@ class DogListViewModel: ObservableObject {
     private var cancellables = Set<AnyCancellable>()
     @Published var state: DogListState = .loading
     @Published var availableDogs: [DogListModel] = []
+    @Published var searchResults: [DogListModel] = []
     private var response: [DogListModel] = []
     var totalPages = 10
     var page = 0
@@ -27,6 +28,26 @@ class DogListViewModel: ObservableObject {
     init(repository: DogListRepository = DogListRepository()) {
         self.repository = repository
         requestDogList(page: page)
+    }
+
+    func loadMore(item: DogListModel) {
+        if state.isLoading {
+            return
+        }
+        let lastItemId = availableDogs.last?.id
+        if let lastItemId {
+            if item.id == lastItemId && page <= totalPages {
+                page += 1
+                state = .loading
+                requestDogList(page: page)
+                print("page:\(page)")
+            }
+        }
+    }
+
+    func filterResultsFor(_ keyword: String) {
+        self.searchResults = availableDogs.filter { $0.name.contains(keyword) }
+        print(searchResults.count)
     }
 }
 
@@ -48,25 +69,15 @@ extension DogListViewModel: DogListViewModelProtocol {
                 let dogs = value.compactMap { $0 }
                 let response = dogs.map { DogListModel(id: UUID().uuidString,
                                                        name: $0.breeds.compactMap { $0.name }.first ?? "",
-                                                       imageUrl: $0.url ?? "")}
+                                                       imageUrl: $0.url ?? "",
+                                                       group: $0.breeds.compactMap { $0.group }.first ?? "",
+                                                       origin: $0.breeds.compactMap { $0.origin }.first ?? "Unknown" )}
                 self.response.append(contentsOf: response)
-                let formateddArray = self.response.removeDuplicates()
-                self.availableDogs = formateddArray
+                let formatedArray = self.response.removeDuplicates()
+                self.availableDogs = formatedArray
                 self.state = .ready
             }
             .store(in: &cancellables)
-    }
-
-    func loadMore(item: DogListModel) {
-        let lastItemId = availableDogs.last?.id
-        if let lastItemId {
-            if item.id == lastItemId, (page + 1) <= totalPages {
-                page += 1
-                state = .loading
-                requestDogList(page: page)
-                print("page:\(page)")
-            }
-        }
     }
 }
 

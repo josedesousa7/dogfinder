@@ -11,6 +11,8 @@ struct DogListModel: Hashable, Equatable {
     let id: String
     let name: String
     let imageUrl: String
+    let group: String
+    let origin: String 
 
     func hash(into hasher: inout Hasher) {
         hasher.combine(name)

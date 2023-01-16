@@ -24,6 +24,7 @@
 		68E81DC429732BE30047E74F /* RequestBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68E81DC329732BE30047E74F /* RequestBuilder.swift */; };
 		68E81DC6297415090047E74F /* DogListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68E81DC5297415090047E74F /* DogListView.swift */; };
 		68E81DC829741B420047E74F /* DogListModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68E81DC729741B420047E74F /* DogListModel.swift */; };
+		68E82BB62975F89A0047E74F /* DogSearchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68E82BB52975F89A0047E74F /* DogSearchView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -64,6 +65,7 @@
 		68E81DC329732BE30047E74F /* RequestBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestBuilder.swift; sourceTree = "<group>"; };
 		68E81DC5297415090047E74F /* DogListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DogListView.swift; sourceTree = "<group>"; };
 		68E81DC729741B420047E74F /* DogListModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DogListModel.swift; sourceTree = "<group>"; };
+		68E82BB52975F89A0047E74F /* DogSearchView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DogSearchView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -191,6 +193,7 @@
 		68E8190F2972EE490047E74F /* Search */ = {
 			isa = PBXGroup;
 			children = (
+				68E82BB52975F89A0047E74F /* DogSearchView.swift */,
 			);
 			path = Search;
 			sourceTree = "<group>";
@@ -368,6 +371,7 @@
 				68E818E22972B2CF0047E74F /* ContentView.swift in Sources */,
 				68E81DC429732BE30047E74F /* RequestBuilder.swift in Sources */,
 				68E8191C297309430047E74F /* RequestManager.swift in Sources */,
+				68E82BB62975F89A0047E74F /* DogSearchView.swift in Sources */,
 				68E818E02972B2CF0047E74F /* DogFinderApp.swift in Sources */,
 				68E819142972FBFE0047E74F /* Dog.swift in Sources */,
 				68E81DBD29730E6F0047E74F /* DogFinderApiClient.swift in Sources */,
