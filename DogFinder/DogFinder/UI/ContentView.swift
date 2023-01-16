@@ -10,17 +10,10 @@ import SwiftUI
 struct ContentView: View {
     var body: some View {
         TabView {
-            VStack {
-                Image(systemName: "globe")
-                    .imageScale(.large)
-                    .foregroundColor(.accentColor)
-                Text("Hello, world!")
-            }
-            .padding()
-
-            .tabItem {
-                Label("Menu", systemImage: "list.dash")
-            }
+            DogListView()
+                .tabItem {
+                    Label("Menu", systemImage: "list.dash")
+                }
 
             VStack {
                 Text("Test")
@@ -32,7 +25,6 @@ struct ContentView: View {
                 Label("Order", systemImage: "square.and.pencil")
             }
         }
-
     }
 }
 
