@@ -16,10 +16,6 @@ struct DogListView: View {
     @State private var layoutFormat: LayoutFormat = .list
     var gridItems: [GridItem] = [GridItem(.flexible()), GridItem(.flexible())]
 
-//    init(viewModel: DogListViewModel = DogListViewModel()) {
-//        self.viewModel = viewModel
-//    }
-
     var body: some View {
         VStack(spacing: .zero) {
             formatChooser()
