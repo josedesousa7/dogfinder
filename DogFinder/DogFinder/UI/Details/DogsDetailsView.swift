@@ -11,10 +11,12 @@ struct DogsDetailsView: View {
     let dog: DogListModel
     var body: some View {
         dogDetailsView
+            .padding()
+            .navigationTitle("Details")
     }
 
     private var dogDetailsView: some View {
-        VStack(alignment: .leading, spacing: .zero) {
+        VStack(alignment: .leading, spacing: 8) {
             Text("Breed name: " + dog.breedName)
             Text("Breed category: " + dog.category)
             Text("Origins from: " + dog.origin)
