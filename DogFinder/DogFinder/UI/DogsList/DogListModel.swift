@@ -9,16 +9,18 @@ import Foundation
 
 struct DogListModel: Hashable, Equatable {
     let id: String
-    let name: String
+    let breedName: String
     let imageUrl: String
     let group: String
-    let origin: String 
+    let origin: String
+    let category: String
+    let temperament: String
 
     func hash(into hasher: inout Hasher) {
-        hasher.combine(name)
+        hasher.combine(breedName)
     }
 
     static func == (lhs: DogListModel, rhs: DogListModel) -> Bool {
-        return lhs.name == rhs.name && lhs.name == rhs.name
+        return lhs.breedName == rhs.breedName && lhs.breedName == rhs.breedName
     }
 }

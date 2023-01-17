@@ -8,13 +8,31 @@
 import SwiftUI
 
 struct DogsDetailsView: View {
+    let dog: DogListModel
     var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+        dogDetailsView
+    }
+
+    private var dogDetailsView: some View {
+        VStack(alignment: .leading, spacing: .zero) {
+            Text("Breed name: " + dog.breedName)
+            Text("Breed category: " + dog.category)
+            Text("Origins from: " + dog.origin)
+            Text("Temperament: " + dog.temperament)
+            Spacer()
+        }
     }
 }
 
 struct DogsDetailsView_Previews: PreviewProvider {
     static var previews: some View {
-        DogsDetailsView()
+
+        DogsDetailsView(dog: DogListModel(id: UUID().uuidString,
+                                          breedName: "name",
+                                          imageUrl: "mock",
+                                          group: "mockGroup",
+                                          origin: "mockOrigin",
+                                          category: "mockCategory",
+                                          temperament: "mockTemperament"))
     }
 }

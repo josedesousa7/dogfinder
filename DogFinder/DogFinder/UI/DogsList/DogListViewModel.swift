@@ -46,13 +46,13 @@ class DogListViewModel: ObservableObject {
     }
 
     func filterResultsFor(_ keyword: String) {
-        self.searchResults = availableDogs.filter { $0.name.contains(keyword) }
+        self.searchResults = availableDogs.filter { $0.breedName.contains(keyword) }
         print(searchResults.count)
     }
 }
 
 extension DogListViewModel: DogListViewModelProtocol {
-
+    
     func requestDogList(page: Int) {
         repository.dogList(page: page)
             .sink { [weak self] response in
@@ -68,10 +68,12 @@ extension DogListViewModel: DogListViewModelProtocol {
                 guard let self = self else { return }
                 let dogs = value.compactMap { $0 }
                 let response = dogs.map { DogListModel(id: UUID().uuidString,
-                                                       name: $0.breeds.compactMap { $0.name }.first ?? "",
+                                                       breedName: $0.breeds.compactMap { $0.name }.first ?? "",
                                                        imageUrl: $0.url ?? "",
                                                        group: $0.breeds.compactMap { $0.group }.first ?? "",
-                                                       origin: $0.breeds.compactMap { $0.origin }.first ?? "Unknown" )}
+                                                       origin: $0.breeds.compactMap { $0.origin }.first ?? "Unknown",
+                                                       category: $0.breeds.compactMap{ $0.category }.first ??  "Unknown",
+                                                       temperament: $0.breeds.compactMap{ $0.temperament }.first ??  "Unknown")}
                 self.response.append(contentsOf: response)
                 let formatedArray = self.response.removeDuplicates()
                 self.availableDogs = formatedArray

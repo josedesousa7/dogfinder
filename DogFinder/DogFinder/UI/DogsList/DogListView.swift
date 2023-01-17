@@ -33,11 +33,11 @@ struct DogListView: View {
             LazyVGrid(columns: gridItems, spacing: 10) {
                 ForEach(items, id: \.id) { item in
                     NavigationLink {
-                        DogsDetailsView()
+                        DogsDetailsView(dog: item)
                     } label: {
                         VStack(spacing: 12) {
                             gridDogPicture(url: item.imageUrl)
-                            dogName(item.name)
+                            dogName(item.breedName)
                             Spacer()
                         }
                         .onAppear() {
@@ -55,11 +55,11 @@ struct DogListView: View {
         List {
             ForEach(items, id: \.id) { item in
                 NavigationLink {
-                    DogsDetailsView()
+                    DogsDetailsView(dog: item)
                 } label: {
                     HStack(spacing: 12) {
                         listdogPicture(url: item.imageUrl)
-                        dogName(item.name)
+                        dogName(item.breedName)
                         Spacer()
                     }
                     .onAppear() {
