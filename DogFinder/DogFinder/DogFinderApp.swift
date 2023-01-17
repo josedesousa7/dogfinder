@@ -9,9 +9,22 @@ import SwiftUI
 
 @main
 struct DogFinderApp: App {
+    let viewModel = DogListViewModel()
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            TabView {
+                DogListView()
+                    .tabItem {
+                        Label("Menu", systemImage: "list.dash")
+                    }
+                    .environmentObject(viewModel)
+                DogSearchView()
+                    .environmentObject(viewModel)
+                .tabItem {
+                    Label("Order", systemImage: "square.and.pencil")
+                }
+            }
+            .padding(.horizontal, 5)
         }
     }
 }

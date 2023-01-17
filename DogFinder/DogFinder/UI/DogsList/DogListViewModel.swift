@@ -18,8 +18,10 @@ protocol DogListViewModelProtocol {
 class DogListViewModel: ObservableObject {
     private var repository: DogListRepository
     private var cancellables = Set<AnyCancellable>()
-    @Published var state: DogListState = .loading
+    @Published var state: DogListState = .initialLoading
     @Published var availableDogs: [DogListModel] = []
+    @Published var searchResults: [DogListModel] = []
+    @Published var showErrorMessage = false
     private var response: [DogListModel] = []
     var totalPages = 10
     var page = 0
@@ -28,39 +30,14 @@ class DogListViewModel: ObservableObject {
         self.repository = repository
         requestDogList(page: page)
     }
-}
-
-extension DogListViewModel: DogListViewModelProtocol {
-
-    func requestDogList(page: Int) {
-        repository.dogList(page: page)
-            .sink { [weak self] response in
-                guard let self = self else { return }
-                switch response {
-                case .failure(let error):
-                    self.state = .error
-                    print (error.localizedDescription)
-                case .finished:
-                    break
-                }
-            } receiveValue: { [weak self] value in
-                guard let self = self else { return }
-                let dogs = value.compactMap { $0 }
-                let response = dogs.map { DogListModel(id: UUID().uuidString,
-                                                       name: $0.breeds.compactMap { $0.name }.first ?? "",
-                                                       imageUrl: $0.url ?? "")}
-                self.response.append(contentsOf: response)
-                let formateddArray = self.response.removeDuplicates()
-                self.availableDogs = formateddArray
-                self.state = .ready
-            }
-            .store(in: &cancellables)
-    }
 
     func loadMore(item: DogListModel) {
+        if state.isLoading {
+            return
+        }
         let lastItemId = availableDogs.last?.id
         if let lastItemId {
-            if item.id == lastItemId, (page + 1) <= totalPages {
+            if item.id == lastItemId && page <= totalPages {
                 page += 1
                 state = .loading
                 requestDogList(page: page)
@@ -68,12 +45,57 @@ extension DogListViewModel: DogListViewModelProtocol {
             }
         }
     }
+
+    func filterResultsFor(_ keyword: String) {
+        self.searchResults = availableDogs.filter { $0.breedName.contains(keyword) }
+        print(searchResults.count)
+    }
+
+    func sortListOfdogs() {
+        let sortedResult = availableDogs.sorted(by: { $0.breedName < $1.breedName })
+        availableDogs = sortedResult
+    }
+}
+
+extension DogListViewModel: DogListViewModelProtocol {
+    
+    func requestDogList(page: Int) {
+        repository.dogList(page: page)
+            .sink { [weak self] response in
+                guard let self = self else { return }
+                switch response {
+                case .failure(let error):
+                    self.state = .error
+                    self.showErrorMessage = true
+                    print (error.localizedDescription)
+                case .finished:
+                    break
+                }
+            } receiveValue: { [weak self] value in
+                guard let self = self else { return }
+                self.showErrorMessage = false
+                let dogs = value.compactMap { $0 }
+                let response = dogs.map { DogListModel(id: UUID().uuidString,
+                                                       breedName: $0.breeds.compactMap { $0.name }.first ?? "",
+                                                       imageUrl: $0.url ?? "",
+                                                       group: $0.breeds.compactMap { $0.group }.first ?? "",
+                                                       origin: $0.breeds.compactMap { $0.origin }.first ?? "Unknown",
+                                                       category: $0.breeds.compactMap{ $0.category }.first ??  "Unknown",
+                                                       temperament: $0.breeds.compactMap{ $0.temperament }.first ??  "Unknown")}
+                self.response.append(contentsOf: response)
+                let formatedArray = self.response.removeDuplicates()
+                self.availableDogs = formatedArray
+                self.state = .ready
+            }
+            .store(in: &cancellables)
+    }
 }
 
 enum DogListState {
     case loading
     case error
     case ready
+    case initialLoading
 
     var isLoading: Bool {
         switch self {

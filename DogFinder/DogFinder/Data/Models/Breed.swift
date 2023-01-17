@@ -14,6 +14,7 @@ struct Breed: Codable {
     let group: String?
     let lifeSpan: String?
     let temperament: String?
+    let origin: String?
     let imageId: String?
     let weight: MeasurementSystem
     let height: MeasurementSystem
@@ -29,5 +30,6 @@ struct Breed: Codable {
         case lifeSpan = "life_span"
         case temperament = "temperament"
         case imageId = "reference_image_id"
+        case origin = "origin"
     }
 }
