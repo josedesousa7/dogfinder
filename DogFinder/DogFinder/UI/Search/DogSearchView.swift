@@ -36,10 +36,14 @@ struct DogSearchView: View {
     private var searchResultsView: some View {
         List {
             ForEach(viewModel.searchResults, id: \.name) { item in
-                VStack(alignment: .leading, spacing: 8) {
-                    Text("Name: " + item.name)
-                    Text("Group: " + item.group)
-                    Text("Origin: " + item.origin)
+                NavigationLink {
+                    DogsDetailsView()
+                } label: {
+                    VStack(alignment: .leading, spacing: 8) {
+                        Text("Name: " + item.name)
+                        Text("Group: " + item.group)
+                        Text("Origin: " + item.origin)
+                    }
                 }
             }
         }

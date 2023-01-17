@@ -17,20 +17,48 @@ struct DogListView: View {
     var gridItems: [GridItem] = [GridItem(.flexible()), GridItem(.flexible())]
 
     var body: some View {
-        VStack(spacing: .zero) {
-            formatChooser()
-                .padding(.horizontal, 16)
-                .padding(.bottom, 8)
-            updatedLayout(items: viewModel.availableDogs)
+        NavigationStack {
+            VStack(spacing: .zero) {
+                formatChooser()
+                    .padding(.horizontal, 16)
+                    .padding(.bottom, 8)
+                updatedLayout(items: viewModel.availableDogs)
+            }.navigationTitle("Dogs 🐶")
         }
+
     }
 
     @ViewBuilder private func gridView(items: [DogListModel]) -> some View {
         ScrollView {
             LazyVGrid(columns: gridItems, spacing: 10) {
                 ForEach(items, id: \.id) { item in
-                    VStack(spacing: 12) {
-                        gridDogPicture(url: item.imageUrl)
+                    NavigationLink {
+                        DogsDetailsView()
+                    } label: {
+                        VStack(spacing: 12) {
+                            gridDogPicture(url: item.imageUrl)
+                            dogName(item.name)
+                            Spacer()
+                        }
+                        .onAppear() {
+                            viewModel.loadMore(item: item)
+                        }
+                    }
+                }
+            }
+        }
+        .buttonStyle(.plain)
+        .redacted(reason: viewModel.state.isLoading ? .placeholder: [])
+    }
+
+    @ViewBuilder private func listView(items: [DogListModel]) -> some View {
+        List {
+            ForEach(items, id: \.id) { item in
+                NavigationLink {
+                    DogsDetailsView()
+                } label: {
+                    HStack(spacing: 12) {
+                        listdogPicture(url: item.imageUrl)
                         dogName(item.name)
                         Spacer()
                     }
@@ -38,22 +66,7 @@ struct DogListView: View {
                         viewModel.loadMore(item: item)
                     }
                 }
-            }
-        }
-        .redacted(reason: viewModel.state.isLoading ? .placeholder: [])
-    }
 
-    @ViewBuilder private func listView(items: [DogListModel]) -> some View {
-        List {
-            ForEach(items, id: \.id) { item in
-                HStack(spacing: 12) {
-                    listdogPicture(url: item.imageUrl)
-                    dogName(item.name)
-                    Spacer()
-                }
-                .onAppear() {
-                    viewModel.loadMore(item: item)
-                }
             }
             .frame(height: 100)
         }.redacted(reason: viewModel.state.isLoading ? .placeholder: [])
@@ -128,6 +141,8 @@ struct DogListView: View {
 
 struct DogListView_Previews: PreviewProvider {
     static var previews: some View {
+        let viewModel = DogListViewModel()
         DogListView()
+            .environmentObject(viewModel)
     }
 }

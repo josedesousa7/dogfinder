@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		68258B11297720C7003E53DA /* DogsDetailsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68258B10297720C7003E53DA /* DogsDetailsView.swift */; };
 		68E818E02972B2CF0047E74F /* DogFinderApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68E818DF2972B2CF0047E74F /* DogFinderApp.swift */; };
 		68E818E22972B2CF0047E74F /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68E818E12972B2CF0047E74F /* ContentView.swift */; };
 		68E818E42972B2D00047E74F /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 68E818E32972B2D00047E74F /* Assets.xcassets */; };
@@ -45,6 +46,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		68258B10297720C7003E53DA /* DogsDetailsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DogsDetailsView.swift; sourceTree = "<group>"; };
 		68E818DC2972B2CF0047E74F /* DogFinder.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DogFinder.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		68E818DF2972B2CF0047E74F /* DogFinderApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DogFinderApp.swift; sourceTree = "<group>"; };
 		68E818E12972B2CF0047E74F /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -201,6 +203,7 @@
 		68E819102972EE570047E74F /* Details */ = {
 			isa = PBXGroup;
 			children = (
+				68258B10297720C7003E53DA /* DogsDetailsView.swift */,
 			);
 			path = Details;
 			sourceTree = "<group>";
@@ -364,6 +367,7 @@
 			files = (
 				68E81DC129731D8D0047E74F /* DogListViewModel.swift in Sources */,
 				68E81DBF29731A8B0047E74F /* DogListRepository.swift in Sources */,
+				68258B11297720C7003E53DA /* DogsDetailsView.swift in Sources */,
 				68E81DC6297415090047E74F /* DogListView.swift in Sources */,
 				68E819182972FC6E0047E74F /* MeasurementSystem.swift in Sources */,
 				68E81DC829741B420047E74F /* DogListModel.swift in Sources */,
