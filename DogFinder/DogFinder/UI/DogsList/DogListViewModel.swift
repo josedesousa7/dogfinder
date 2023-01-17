@@ -21,6 +21,7 @@ class DogListViewModel: ObservableObject {
     @Published var state: DogListState = .initialLoading
     @Published var availableDogs: [DogListModel] = []
     @Published var searchResults: [DogListModel] = []
+    @Published var showErrorMessage = false
     private var response: [DogListModel] = []
     var totalPages = 10
     var page = 0
@@ -65,12 +66,14 @@ extension DogListViewModel: DogListViewModelProtocol {
                 switch response {
                 case .failure(let error):
                     self.state = .error
+                    self.showErrorMessage = true
                     print (error.localizedDescription)
                 case .finished:
                     break
                 }
             } receiveValue: { [weak self] value in
                 guard let self = self else { return }
+                self.showErrorMessage = false
                 let dogs = value.compactMap { $0 }
                 let response = dogs.map { DogListModel(id: UUID().uuidString,
                                                        breedName: $0.breeds.compactMap { $0.name }.first ?? "",

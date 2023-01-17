@@ -14,16 +14,12 @@ struct DogListView: View {
     private var circle = Circle()
     private var rectangle = Rectangle()
     @State private var layoutFormat: LayoutFormat = .list
+    @State private var presentAlert = false
     var gridItems: [GridItem] = [GridItem(.flexible()), GridItem(.flexible())]
 
     var body: some View {
-        if viewModel.state == .initialLoading {
-            VStack {
-                Spacer()
-                ProgressView()
-                Spacer()
-            }
-        } else {
+        switch viewModel.state {
+        case .ready, .loading:
             NavigationStack {
                 VStack(alignment: .leading, spacing: .zero) {
                     formatChooser()
@@ -34,7 +30,26 @@ struct DogListView: View {
                 }
                 .navigationTitle("Dogs 🐶")
             }
+
+        case .initialLoading:
+            VStack {
+                Spacer()
+                ProgressView()
+                Spacer()
+            }
+
+        case .error:
+            errorView
         }
+    }
+
+    private var errorView: some View {
+        Text("")
+            .alert("Something went wrong", isPresented: $viewModel.showErrorMessage) {
+                    Button("Retry", role: .cancel) {
+                        viewModel.requestDogList(page: 0)
+                    }
+                }
     }
 
     @ViewBuilder private func gridView(items: [DogListModel]) -> some View {
