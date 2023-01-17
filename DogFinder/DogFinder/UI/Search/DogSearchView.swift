@@ -12,21 +12,38 @@ struct DogSearchView: View {
     @State private var searchText = ""
     var body: some View {
         NavigationStack {
-            List {
-                ForEach(viewModel.searchResults, id: \.name) { item in
-                    VStack(alignment: .leading, spacing: 8) {
-                        Text("Name: " + item.name)
-                        Text("Group: " + item.group)
-                        Text("Origin: " + item.origin)
-                    }
-                }
+            if viewModel.searchResults.isEmpty {
+                noResultsView
+            } else {
+                searchResultsView
             }
-            .navigationTitle("Search")
         }
         .onChange(of: searchText, perform: { newValue in
             viewModel.filterResultsFor(newValue)
         })
         .searchable(text: $searchText, prompt: "Look for something")
+    }
+
+    private var noResultsView: some View {
+        VStack {
+            Spacer()
+            Text("No results found")
+                .navigationTitle("Search")
+            Spacer()
+        }
+    }
+
+    private var searchResultsView: some View {
+        List {
+            ForEach(viewModel.searchResults, id: \.name) { item in
+                VStack(alignment: .leading, spacing: 8) {
+                    Text("Name: " + item.name)
+                    Text("Group: " + item.group)
+                    Text("Origin: " + item.origin)
+                }
+            }
+        }
+        .navigationTitle("Search")
     }
 }
 
