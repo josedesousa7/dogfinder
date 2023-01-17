@@ -49,6 +49,11 @@ class DogListViewModel: ObservableObject {
         self.searchResults = availableDogs.filter { $0.breedName.contains(keyword) }
         print(searchResults.count)
     }
+
+    func sortListOfdogs() {
+        let sortedResult = availableDogs.sorted(by: { $0.breedName < $1.breedName })
+        availableDogs = sortedResult
+    }
 }
 
 extension DogListViewModel: DogListViewModelProtocol {

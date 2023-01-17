@@ -18,14 +18,15 @@ struct DogListView: View {
 
     var body: some View {
         NavigationStack {
-            VStack(spacing: .zero) {
+            VStack(alignment: .leading, spacing: .zero) {
                 formatChooser()
                     .padding(.horizontal, 16)
-                    .padding(.bottom, 8)
+                sortButton
+                    .padding()
                 updatedLayout(items: viewModel.availableDogs)
-            }.navigationTitle("Dogs 🐶")
+            }
+            .navigationTitle("Dogs 🐶")
         }
-
     }
 
     @ViewBuilder private func gridView(items: [DogListModel]) -> some View {
@@ -130,6 +131,16 @@ struct DogListView: View {
             listView(items: items)
         case .grid:
             gridView(items: items)
+        }
+    }
+
+    private var sortButton: some View {
+        HStack(alignment:.top, spacing: .zero) {
+            Spacer()
+            Button("Sort!") {
+                viewModel.sortListOfdogs()
+            }
+            Spacer()
         }
     }
 
