@@ -10,6 +10,7 @@ import SwiftUI
 struct DogSearchView: View {
     @EnvironmentObject var viewModel: DogListViewModel
     @State private var searchText = ""
+
     var body: some View {
         NavigationStack {
             if viewModel.searchResults.isEmpty {

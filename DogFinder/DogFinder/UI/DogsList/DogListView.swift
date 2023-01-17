@@ -17,15 +17,23 @@ struct DogListView: View {
     var gridItems: [GridItem] = [GridItem(.flexible()), GridItem(.flexible())]
 
     var body: some View {
-        NavigationStack {
-            VStack(alignment: .leading, spacing: .zero) {
-                formatChooser()
-                    .padding(.horizontal, 16)
-                sortButton
-                    .padding()
-                updatedLayout(items: viewModel.availableDogs)
+        if viewModel.state == .initialLoading {
+            VStack {
+                Spacer()
+                ProgressView()
+                Spacer()
             }
-            .navigationTitle("Dogs 🐶")
+        } else {
+            NavigationStack {
+                VStack(alignment: .leading, spacing: .zero) {
+                    formatChooser()
+                        .padding(.horizontal, 16)
+                    sortButton
+                        .padding()
+                    updatedLayout(items: viewModel.availableDogs)
+                }
+                .navigationTitle("Dogs 🐶")
+            }
         }
     }
 

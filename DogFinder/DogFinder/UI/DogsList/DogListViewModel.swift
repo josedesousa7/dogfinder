@@ -18,7 +18,7 @@ protocol DogListViewModelProtocol {
 class DogListViewModel: ObservableObject {
     private var repository: DogListRepository
     private var cancellables = Set<AnyCancellable>()
-    @Published var state: DogListState = .loading
+    @Published var state: DogListState = .initialLoading
     @Published var availableDogs: [DogListModel] = []
     @Published var searchResults: [DogListModel] = []
     private var response: [DogListModel] = []
@@ -92,6 +92,7 @@ enum DogListState {
     case loading
     case error
     case ready
+    case initialLoading
 
     var isLoading: Bool {
         switch self {
