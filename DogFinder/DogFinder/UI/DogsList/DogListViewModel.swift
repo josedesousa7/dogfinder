@@ -32,17 +32,13 @@ class DogListViewModel: ObservableObject {
     }
 
     func loadMore(item: DogListModel) {
-        if state.isLoading {
-            return
-        }
-        let lastItemId = availableDogs.last?.id
-        if let lastItemId {
-            if item.id == lastItemId && page <= totalPages {
-                page += 1
-                state = .loading
-                requestDogList(page: page)
-                print("page:\(page)")
-            }
+        let treshold = self.availableDogs.index(self.availableDogs.endIndex, offsetBy: -1)
+        let itemIndex = self.availableDogs.firstIndex { $0.id ==  item.id }
+        if treshold == itemIndex && page <= totalPages {
+            page += 1
+            state = .loading
+            requestDogList(page: page)
+            print("page:\(page)")
         }
     }
 

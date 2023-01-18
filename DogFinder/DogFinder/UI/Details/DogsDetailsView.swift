@@ -16,11 +16,29 @@ struct DogsDetailsView: View {
     }
 
     private var dogDetailsView: some View {
-        VStack(alignment: .leading, spacing: 8) {
-            Text("Breed name: " + dog.breedName)
-            Text("Breed category: " + dog.category)
-            Text("Origins from: " + dog.origin)
-            Text("Temperament: " + dog.temperament)
+        GeometryReader { _ in
+            VStack(alignment: .leading, spacing: 8) {
+                dogsInfoView(title: "Breed name:",
+                             body: dog.breedName)
+                dogsInfoView(title: "Breed category:",
+                             body: dog.category)
+                dogsInfoView(title: "Origins from:",
+                             body: dog.origin)
+                dogsInfoView(title: "Temperament:",
+                             body: dog.temperament)
+            }
+            .padding()
+            .overlay(RoundedRectangle(cornerRadius: 8)
+                .stroke(Color(.systemGroupedBackground), lineWidth: 2.0))
+        }
+    }
+
+    @ViewBuilder private func dogsInfoView(title: String,
+                                           body: String) -> some View {
+        HStack(alignment: .top) {
+            Text(title)
+                .font(.headline)
+            Text(body)
             Spacer()
         }
     }

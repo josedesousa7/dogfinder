@@ -20,14 +20,17 @@ struct DogListView: View {
     var body: some View {
         switch viewModel.state {
         case .ready, .loading:
-            NavigationStack {
+            NavigationView {
                 VStack(alignment: .leading, spacing: .zero) {
                     formatChooser()
-                        .padding(.horizontal, 16)
-                    sortButton
                         .padding()
                     updatedLayout(items: viewModel.availableDogs)
                 }
+                .toolbar(content: {
+                    ToolbarItem {
+                        sortButton
+                    }
+                })
                 .navigationTitle("Dogs 🐶")
             }
 
@@ -76,24 +79,28 @@ struct DogListView: View {
     }
 
     @ViewBuilder private func listView(items: [DogListModel]) -> some View {
-        List {
-            ForEach(items, id: \.id) { item in
-                NavigationLink {
-                    DogsDetailsView(dog: item)
-                } label: {
-                    HStack(spacing: 12) {
-                        listdogPicture(url: item.imageUrl)
-                        dogName(item.breedName)
-                        Spacer()
+        ScrollView {
+            LazyVStack {
+                ForEach(items, id: \.id) { item in
+                    NavigationLink {
+                        DogsDetailsView(dog: item)
+                    } label: {
+                        HStack(spacing: 12) {
+                            listdogPicture(url: item.imageUrl)
+                            dogName(item.breedName)
+                            Spacer()
+                        }
+                        .onAppear() {
+                            viewModel.loadMore(item: item)
+                        }
                     }
-                    .onAppear() {
-                        viewModel.loadMore(item: item)
-                    }
-                }
 
-            }
-            .frame(height: 100)
-        }.redacted(reason: viewModel.state.isLoading ? .placeholder: [])
+                }
+                .frame(height: 100)
+            }.redacted(reason: viewModel.state.isLoading ? .placeholder: [])
+        }
+        .buttonStyle(.plain)
+        .padding()
     }
 
     @ViewBuilder private func listdogPicture(url: String) -> some View {
@@ -158,12 +165,8 @@ struct DogListView: View {
     }
 
     private var sortButton: some View {
-        HStack(alignment:.top, spacing: .zero) {
-            Spacer()
-            Button("Sort!") {
-                viewModel.sortListOfdogs()
-            }
-            Spacer()
+        Button("Sort!") {
+            viewModel.sortListOfdogs()
         }
     }
 
