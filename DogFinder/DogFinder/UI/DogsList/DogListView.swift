@@ -79,23 +79,20 @@ struct DogListView: View {
     }
 
     @ViewBuilder private func listView(items: [DogListModel]) -> some View {
-        ScrollView {
-            LazyVStack {
-                ForEach(items, id: \.id) { item in
-                    NavigationLink {
-                        DogsDetailsView(dog: item)
-                    } label: {
-                        dogRow(dog: item)
-                        .onAppear() {
+        List {
+            ForEach(items, id: \.id) { item in
+                NavigationLink {
+                    DogsDetailsView(dog: item)
+                } label: {
+                    dogRow(dog: item)
+                        .padding()
+                        .onAppear {
                             viewModel.loadMore(item: item)
                         }
-                    }
-
                 }
-            }.redacted(reason: viewModel.state.isLoading ? .placeholder: [])
-        }
-        .buttonStyle(.plain)
-        .padding()
+            }
+        }.redacted(reason: viewModel.state.isLoading ? .placeholder: [])
+
     }
 
     @ViewBuilder private func dogRow(dog: DogListModel) -> some View {
@@ -104,9 +101,6 @@ struct DogListView: View {
             dogName(dog.breedName)
             Spacer()
         }
-        .padding()
-        .overlay(RoundedRectangle(cornerRadius: 8)
-            .stroke(Color(.systemGroupedBackground), lineWidth: 2.0))
     }
 
     @ViewBuilder private func listdogPicture(url: String) -> some View {
