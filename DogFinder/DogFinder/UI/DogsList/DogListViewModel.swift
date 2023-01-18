@@ -16,17 +16,17 @@ protocol DogListViewModelProtocol {
 }
 
 class DogListViewModel: ObservableObject {
-    private var repository: DogListRepository
+    private var repository: DogListRepositoryProtocol
     private var cancellables = Set<AnyCancellable>()
     @Published var state: DogListState = .initialLoading
     @Published var availableDogs: [DogListModel] = []
     @Published var searchResults: [DogListModel] = []
     @Published var showErrorMessage = false
-    private var response: [DogListModel] = []
+    var response: [DogListModel] = []
     var totalPages = 10
     var page = 0
 
-    init(repository: DogListRepository = DogListRepository()) {
+    init(repository: DogListRepositoryProtocol = DogListRepository()) {
         self.repository = repository
         requestDogList(page: page)
     }
@@ -38,13 +38,11 @@ class DogListViewModel: ObservableObject {
             page += 1
             state = .loading
             requestDogList(page: page)
-            print("page:\(page)")
         }
     }
 
     func filterResultsFor(_ keyword: String) {
         self.searchResults = availableDogs.filter { $0.breedName.contains(keyword) }
-        print(searchResults.count)
     }
 
     func sortListOfdogs() {

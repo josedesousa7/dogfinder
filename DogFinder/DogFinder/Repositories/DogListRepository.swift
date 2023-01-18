@@ -8,7 +8,11 @@
 import Foundation
 import Combine
 
-struct DogListRepository {
+protocol DogListRepositoryProtocol {
+    func dogList(page: Int) -> AnyPublisher<[Dog], Error>
+}
+
+struct DogListRepository: DogListRepositoryProtocol {
 
     private var apiClient: DogFinderRequestsProtocol
 
