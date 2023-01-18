@@ -85,22 +85,28 @@ struct DogListView: View {
                     NavigationLink {
                         DogsDetailsView(dog: item)
                     } label: {
-                        HStack(spacing: 12) {
-                            listdogPicture(url: item.imageUrl)
-                            dogName(item.breedName)
-                            Spacer()
-                        }
+                        dogRow(dog: item)
                         .onAppear() {
                             viewModel.loadMore(item: item)
                         }
                     }
 
                 }
-                .frame(height: 100)
             }.redacted(reason: viewModel.state.isLoading ? .placeholder: [])
         }
         .buttonStyle(.plain)
         .padding()
+    }
+
+    @ViewBuilder private func dogRow(dog: DogListModel) -> some View {
+        HStack(spacing: 12) {
+            listdogPicture(url: dog.imageUrl)
+            dogName(dog.breedName)
+            Spacer()
+        }
+        .padding()
+        .overlay(RoundedRectangle(cornerRadius: 8)
+            .stroke(Color(.systemGroupedBackground), lineWidth: 2.0))
     }
 
     @ViewBuilder private func listdogPicture(url: String) -> some View {
