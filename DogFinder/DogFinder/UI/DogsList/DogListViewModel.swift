@@ -74,9 +74,9 @@ extension DogListViewModel: DogListViewModelProtocol {
                                                        origin: $0.breeds.compactMap { $0.origin }.first ?? "Unknown",
                                                        category: $0.breeds.compactMap{ $0.category }.first ??  "Unknown",
                                                        temperament: $0.breeds.compactMap{ $0.temperament }.first ??  "Unknown")}
-                self.response.append(contentsOf: response)
+                self.response = response
                 let formatedArray = self.response.removeDuplicates()
-                self.availableDogs = formatedArray
+                self.availableDogs.append(contentsOf: formatedArray)
                 self.state = .ready
             }
             .store(in: &cancellables)
