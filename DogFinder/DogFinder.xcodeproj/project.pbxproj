@@ -7,12 +7,16 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		6814B75829789A4300330FAB /* MockRequestManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6814B75729789A4300330FAB /* MockRequestManager.swift */; };
+		6814B75A29789ECE00330FAB /* MockApiClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6814B75929789ECE00330FAB /* MockApiClient.swift */; };
+		6814B75C2978A10600330FAB /* MockRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6814B75B2978A10600330FAB /* MockRepository.swift */; };
+		6814B7602978B81900330FAB /* response.json in Resources */ = {isa = PBXBuildFile; fileRef = 6814B75F2978B81900330FAB /* response.json */; };
 		68258B11297720C7003E53DA /* DogsDetailsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68258B10297720C7003E53DA /* DogsDetailsView.swift */; };
 		68E818E02972B2CF0047E74F /* DogFinderApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68E818DF2972B2CF0047E74F /* DogFinderApp.swift */; };
 		68E818E22972B2CF0047E74F /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68E818E12972B2CF0047E74F /* ContentView.swift */; };
 		68E818E42972B2D00047E74F /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 68E818E32972B2D00047E74F /* Assets.xcassets */; };
 		68E818E72972B2D00047E74F /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 68E818E62972B2D00047E74F /* Preview Assets.xcassets */; };
-		68E818F12972B2D00047E74F /* DogFinderTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68E818F02972B2D00047E74F /* DogFinderTests.swift */; };
+		68E818F12972B2D00047E74F /* DogListViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68E818F02972B2D00047E74F /* DogListViewModelTests.swift */; };
 		68E818FB2972B2D00047E74F /* DogFinderUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68E818FA2972B2D00047E74F /* DogFinderUITests.swift */; };
 		68E818FD2972B2D00047E74F /* DogFinderUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68E818FC2972B2D00047E74F /* DogFinderUITestsLaunchTests.swift */; };
 		68E819142972FBFE0047E74F /* Dog.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68E819132972FBFE0047E74F /* Dog.swift */; };
@@ -46,6 +50,10 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		6814B75729789A4300330FAB /* MockRequestManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockRequestManager.swift; sourceTree = "<group>"; };
+		6814B75929789ECE00330FAB /* MockApiClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockApiClient.swift; sourceTree = "<group>"; };
+		6814B75B2978A10600330FAB /* MockRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockRepository.swift; sourceTree = "<group>"; };
+		6814B75F2978B81900330FAB /* response.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = response.json; sourceTree = "<group>"; };
 		68258B10297720C7003E53DA /* DogsDetailsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DogsDetailsView.swift; sourceTree = "<group>"; };
 		68E818DC2972B2CF0047E74F /* DogFinder.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DogFinder.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		68E818DF2972B2CF0047E74F /* DogFinderApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DogFinderApp.swift; sourceTree = "<group>"; };
@@ -53,7 +61,7 @@
 		68E818E32972B2D00047E74F /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		68E818E62972B2D00047E74F /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		68E818EC2972B2D00047E74F /* DogFinderTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = DogFinderTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		68E818F02972B2D00047E74F /* DogFinderTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DogFinderTests.swift; sourceTree = "<group>"; };
+		68E818F02972B2D00047E74F /* DogListViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DogListViewModelTests.swift; sourceTree = "<group>"; };
 		68E818F62972B2D00047E74F /* DogFinderUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = DogFinderUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		68E818FA2972B2D00047E74F /* DogFinderUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DogFinderUITests.swift; sourceTree = "<group>"; };
 		68E818FC2972B2D00047E74F /* DogFinderUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DogFinderUITestsLaunchTests.swift; sourceTree = "<group>"; };
@@ -95,6 +103,16 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		6814B7612978BB7400330FAB /* Mocks */ = {
+			isa = PBXGroup;
+			children = (
+				6814B75729789A4300330FAB /* MockRequestManager.swift */,
+				6814B75929789ECE00330FAB /* MockApiClient.swift */,
+				6814B75B2978A10600330FAB /* MockRepository.swift */,
+			);
+			path = Mocks;
+			sourceTree = "<group>";
+		};
 		68E818D32972B2CF0047E74F = {
 			isa = PBXGroup;
 			children = (
@@ -139,7 +157,9 @@
 		68E818EF2972B2D00047E74F /* DogFinderTests */ = {
 			isa = PBXGroup;
 			children = (
-				68E818F02972B2D00047E74F /* DogFinderTests.swift */,
+				6814B7612978BB7400330FAB /* Mocks */,
+				6814B75F2978B81900330FAB /* response.json */,
+				68E818F02972B2D00047E74F /* DogListViewModelTests.swift */,
 			);
 			path = DogFinderTests;
 			sourceTree = "<group>";
@@ -348,6 +368,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				6814B7602978B81900330FAB /* response.json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -386,7 +407,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				68E818F12972B2D00047E74F /* DogFinderTests.swift in Sources */,
+				6814B75A29789ECE00330FAB /* MockApiClient.swift in Sources */,
+				6814B75C2978A10600330FAB /* MockRepository.swift in Sources */,
+				68E818F12972B2D00047E74F /* DogListViewModelTests.swift in Sources */,
+				6814B75829789A4300330FAB /* MockRequestManager.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

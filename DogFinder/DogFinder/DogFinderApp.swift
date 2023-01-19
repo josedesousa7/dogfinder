@@ -21,7 +21,7 @@ struct DogFinderApp: App {
                 DogSearchView()
                     .environmentObject(viewModel)
                 .tabItem {
-                    Label("Order", systemImage: "square.and.pencil")
+                    Label("Search", systemImage: "magnifyingglass")
                 }
             }
             .padding(.horizontal, 5)

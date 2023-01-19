@@ -16,39 +16,33 @@ protocol DogListViewModelProtocol {
 }
 
 class DogListViewModel: ObservableObject {
-    private var repository: DogListRepository
+    private var repository: DogListRepositoryProtocol
     private var cancellables = Set<AnyCancellable>()
     @Published var state: DogListState = .initialLoading
     @Published var availableDogs: [DogListModel] = []
     @Published var searchResults: [DogListModel] = []
     @Published var showErrorMessage = false
-    private var response: [DogListModel] = []
+    var response: [DogListModel] = []
     var totalPages = 10
     var page = 0
 
-    init(repository: DogListRepository = DogListRepository()) {
+    init(repository: DogListRepositoryProtocol = DogListRepository()) {
         self.repository = repository
         requestDogList(page: page)
     }
 
     func loadMore(item: DogListModel) {
-        if state.isLoading {
-            return
-        }
-        let lastItemId = availableDogs.last?.id
-        if let lastItemId {
-            if item.id == lastItemId && page <= totalPages {
-                page += 1
-                state = .loading
-                requestDogList(page: page)
-                print("page:\(page)")
-            }
+        let treshold = self.availableDogs.index(self.availableDogs.endIndex, offsetBy: -1)
+        let itemIndex = self.availableDogs.firstIndex { $0.id ==  item.id }
+        if treshold == itemIndex && page <= totalPages {
+            page += 1
+            state = .loading
+            requestDogList(page: page)
         }
     }
 
     func filterResultsFor(_ keyword: String) {
         self.searchResults = availableDogs.filter { $0.breedName.contains(keyword) }
-        print(searchResults.count)
     }
 
     func sortListOfdogs() {
