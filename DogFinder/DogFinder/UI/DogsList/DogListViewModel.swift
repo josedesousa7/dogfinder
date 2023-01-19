@@ -8,8 +8,6 @@
 import Foundation
 import Combine
 
-public typealias DogListViewModelOutput<T: Codable> = (_ output: T?, _ error: Error?) -> Void
-
 protocol DogListViewModelProtocol {
     var state: DogListState { get set }
     func requestDogList(page: Int)

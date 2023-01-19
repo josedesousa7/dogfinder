@@ -49,10 +49,10 @@ struct DogListView: View {
     private var errorView: some View {
         Text("")
             .alert("Something went wrong", isPresented: $viewModel.showErrorMessage) {
-                    Button("Retry", role: .cancel) {
-                        viewModel.requestDogList(page: 0)
-                    }
+                Button("Retry", role: .cancel) {
+                    viewModel.requestDogList(page: 0)
                 }
+            }
     }
 
     @ViewBuilder private func gridView(items: [DogListModel]) -> some View {

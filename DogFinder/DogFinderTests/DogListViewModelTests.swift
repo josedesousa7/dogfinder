@@ -48,5 +48,4 @@ final class DogListViewModelTests: XCTestCase {
         let newFirstItem = try XCTUnwrap(viewModel.availableDogs.first)
         XCTAssertEqual(newFirstItem.breedName, "Afghan Hound")
     }
-
 }
